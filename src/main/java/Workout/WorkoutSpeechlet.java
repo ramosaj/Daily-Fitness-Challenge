@@ -13,12 +13,13 @@ import com.amazon.speech.ui.SimpleCard;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
+//contains the handler function used by the AWS Lamda function to service requests
 public class WorkoutSpeechlet implements Speechlet {
 	 private static final Logger log = LoggerFactory.getLogger(WorkoutSpeechlet.class);
 	
-	private SpeechletResponse getWorkout() {
-		// TODO Auto-generated method stub
+	 //the helper function that chooses the workout
+	 private SpeechletResponse getWorkout() {
+		
 		ArrayList<String> workoutList = new ArrayList<String>(12);
 		
 		workoutList.add("100 BURPEES");
@@ -36,26 +37,26 @@ public class WorkoutSpeechlet implements Speechlet {
 		String speechText = workoutList.get(getIndex(workoutList));
 		
 		SimpleCard card = new SimpleCard();
-        card.setTitle("HelloWorld");
-        card.setContent(speechText);
+        	card.setTitle("Your daily fitness Challenge!");
+        	card.setContent(speechText);
 
-        // Create the plain text output.
-        PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
-        speech.setText(speechText);
-
-        return SpeechletResponse.newTellResponse(speech,card);
+        	// Create the plain text output.
+        	PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
+        	speech.setText(speechText);
+	
+        	return SpeechletResponse.newTellResponse(speech,card);
 		
 		
 
 	}
-	
+	//random number generation
 	public static int getIndex(ArrayList<String> listing) {
 		return (int) (Math.random() * listing.size());
 		
 		
 	}
 	
-
+	//sends the workout when a LaunchRequest is made to the Lambda function
 	public SpeechletResponse onLaunch(LaunchRequest request, Session session) throws SpeechletException {
 		// TODO Auto-generated method stub
         log.info("onLaunch requestId={}, sessionId={}", request.getRequestId(),
@@ -63,14 +64,15 @@ public class WorkoutSpeechlet implements Speechlet {
 		
 		return getWorkout();
 	}
-
+	//No intents are registed for the skill, so it throws an exception
 	public SpeechletResponse onIntent(IntentRequest request, Session session) throws SpeechletException {
 	        log.info("onIntent requestId={}, sessionId={}", request.getRequestId(),
 	                session.getSessionId());		
 	        
 	        throw new SpeechletException("No intents registred, try launch request");
 	}
-
+	
+	//No need for sessions, because it only responsds to a launch request
 	public void onSessionEnded(SessionEndedRequest request, Session session) throws SpeechletException {
 		log.info("onSessionEnded requestId={}, sessionId={}", request.getRequestId(),
                 session.getSessionId());
