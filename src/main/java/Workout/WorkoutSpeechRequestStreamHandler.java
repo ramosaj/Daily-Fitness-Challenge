@@ -11,7 +11,7 @@ public class WorkoutSpeechRequestStreamHandler extends SpeechletRequestStreamHan
 	         * This Id can be found on https://developer.amazon.com/edw/home.html#/ "Edit" the relevant
 	         * Alexa Skill and put the relevant Application Ids in this Set.
 	         */
-	        supportedApplicationIds.add("amzn1.ask.skill.19da16f5-de7b-4085-b5eb-3ca673ddc4ad");
+	        supportedApplicationIds.add(LAMDA_AP_ID);
 	    }
 	
 	    public WorkoutSpeechRequestStreamHandler() {
